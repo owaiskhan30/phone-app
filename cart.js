@@ -13,6 +13,7 @@ console.log(productCardPrice);
 convert_data.map((item, index) => {
     cartItem.innerHTML += `
         <div class="card" id="card_${item.id}">
+            <img src="${item.image}">
             <h2>Brand: ${item.brand}</h2>
             <h2>Model: ${item.model}</h2>
             <h2>Storage: ${item.storage}</h2>
