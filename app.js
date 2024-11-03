@@ -60,21 +60,24 @@ render(products);
 
 let cart_product = [];
 
-const get_data = localStorage.getItem("Cart Products");
+
+
+const get_data = JSON.parse(localStorage.getItem("Cart Products"));
 if(get_data === null) {
     cart_product = [];
 } else {
     cart_product = [...get_data];
 }
 
+console.log(cart_product);
+
 function addtocart(add_product) {
-    if(cart_product.indexOf(products[add_product]) === -1) {
+    const productIndex = cart_product.findIndex(item => item.model === products[add_product].model);
+    if (productIndex === -1) {
         products[add_product].quantity = 1;
         cart_product.push(products[add_product]);
     } else {
-        products[add_product].quantity++;
-        let total_price = products[add_product].quantity * products[add_product].price;
-        products[add_product].price = total_price;
+        cart_product[productIndex].quantity++;
     }
     console.log(cart_product);
     Swal.fire({
@@ -83,6 +86,7 @@ function addtocart(add_product) {
         icon: "success",
       });
 }
+localStorage.setItem("Cart Products", JSON.stringify(cart_product));
 
 
 // Checkout And Save Data To Local Storage.
